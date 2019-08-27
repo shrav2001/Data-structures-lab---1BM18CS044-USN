@@ -1,0 +1,89 @@
+#include<stdio.h>
+#include<ctype.h>  
+#include<math.h>
+#include<stdlib.h> 
+int stack[100];
+int top = -1 ; 
+void push(int item);  
+int pop();
+void EvalPostfix(char postfix[]);   
+       
+void push(int item)            
+{
+if(top >= 99)
+{
+printf("stack over flow\n");
+return;
+}
+else
+{
+top = top + 1 ;
+stack[top]= item;
+}
+}
+int pop()
+{
+int item;
+if(top==-1)
+{
+printf("stack under flow\n");
+return 9999;
+}
+else
+{
+item = stack[top];
+top = top - 1;
+return item;
+}
+}
+void EvalPostfix(char postfix[])
+{
+int i ;
+char ch;
+int val;
+int A, B ;	
+for (i = 0 ; postfix[i] != ')'; i++)
+{
+ch = postfix[i];
+if (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch=='^')
+{
+A = pop();
+B = pop();
+switch (ch) 
+{
+case '*':
+val = B * A;
+break;
+case '/':
+val = B / A;
+break;
+case '+':
+val = B + A;
+break;
+case '-':
+val = B - A;
+break;
+default :printf("default case\n");
+break;
+}
+push(val);
+}
+}
+printf( "result : %d\n", pop()) ;
+}
+int main()
+{
+int i ;
+char postfix[100];
+printf( " \nEnter postfix expression and then press right parenthesis ')' to end the expression : ");
+for (i = 0 ; i <= 99; i++)
+{
+scanf("%c", &postfix[i]);
+if ( postfix[i] == ')' ) 
+break;
+}
+EvalPostfix(postfix);
+return 0;
+}
+
+

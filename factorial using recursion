@@ -1,0 +1,17 @@
+#include<stdio.h>
+#include<math.h>
+int fact(int a);
+int main()
+{
+int f;
+f=fact(6);
+printf("%d",f);
+return 0;
+}
+int fact(int a)
+{
+if(a==0)
+return 1;
+else
+return (a*fact(a-1));
+}

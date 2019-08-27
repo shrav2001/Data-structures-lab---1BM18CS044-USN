@@ -1,0 +1,66 @@
+#include<stdio.h>
+#include<math.h>
+void push(float e,float s[100],int *t);
+float pop(float s[100],int *t);
+float value(int o1,int o2,char ch);
+
+void push(float e,float s[100],int *t)
+{
+	if(*t==99)
+	{
+		printf("stack overflow \n");
+		return;
+	}
+	
+	s[++(*t)]=e;
+}
+
+float pop(float s[100],int *t)
+{
+	if(*t==-1)
+	{
+		printf("stack underflow \n");
+		return -3;
+	}
+	return s[(*t)--];
+}
+
+float value(int a,int b,char ch)
+{
+	if(ch=='+')
+		return (a+b);
+	else if(ch=='-')
+		return (a-b);
+	else if(ch=='*')
+		return (a*b);
+	else if(ch=='/')
+		return ((float)a/(float)b);
+	else if(ch=='^')
+		return (pow(a,b));
+}
+	int main()
+{
+	float stack[100];
+	int top=-1;
+	char post[100];
+	int i=0;
+	int op1,op2;
+	float val;
+	printf("enter postfix expression\n");
+	scanf("%s",post);
+	while(post[i]!='\0')
+	{
+		if(post[i]>='0'&&post[i]<='9')
+			push((post[i]-'0'),stack,&top);
+		else
+		{
+			op2=pop(stack,&top);
+			op1=pop(stack,&top);
+			val=value(op1,op2,post[i]);
+			push(val,stack,&top);
+		}
+		i++;
+	}
+	printf("%f",pop(stack,&top));
+	return 0;
+}

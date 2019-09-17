@@ -13,7 +13,7 @@ NODE insertpos(NODE head,int item,int pos);
 void display(NODE head);
 int main()
 {
-NODE head=NULL,x,y,z;
+NODE head=NULL;
 int ch,e1,e2,e3,pos;
 do
 {
@@ -23,17 +23,17 @@ switch(ch)
 {
 case 1:printf("enter the element u wanna insert at the front\n");
 scanf("%d",&e1);
-x = front(head,e1);
+head = front(head,e1);
 break;
 case 2:printf("enter the element u wanna insert at the end\n");
 scanf("%d",&e2);
-y= end(head,e2);
+head= end(head,e2);
 break;
 case 3:printf("enter the position u want to enter the element in:\n");
 scanf("%d",&pos);
 printf("enter the element you wanna insert:\n");
 scanf("%d",&e3);
-z= insertpos(head,e3,pos);
+head= insertpos(head,e3,pos);
 break;
 case 4:display(head);
 break;
@@ -77,15 +77,12 @@ NODE p,q;
 q=getnode();
 q->data=item;
 p=head;
-
 while(p->next!=NULL)
 {
 p=p->next;
 }
-
 p->next=q;
 q->next=NULL;
-
 }
 NODE front(NODE head,int item)
 {
@@ -143,3 +140,8 @@ return head;
 }
 }
 }
+
+
+
+
+

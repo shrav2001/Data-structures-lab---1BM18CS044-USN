@@ -1,0 +1,145 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+int data;
+struct node *next;
+};
+typedef struct node * NODE;
+NODE getnode();
+NODE front(NODE head,int item);
+NODE end(NODE head,int item);
+NODE insertpos(NODE head,int item,int pos);
+void display(NODE head);
+int main()
+{
+NODE head=NULL,x,y,z;
+int ch,e1,e2,e3,pos;
+do
+{
+printf("press\n1:insert at front\n2:insert at the end\n3:insert at a particular position\n4:display\n5:exit\n");
+scanf("%d",&ch);
+switch(ch)
+{
+case 1:printf("enter the element u wanna insert at the front\n");
+scanf("%d",&e1);
+x = front(head,e1);
+break;
+case 2:printf("enter the element u wanna insert at the end\n");
+scanf("%d",&e2);
+y= end(head,e2);
+break;
+case 3:printf("enter the position u want to enter the element in:\n");
+scanf("%d",&pos);
+printf("enter the element you wanna insert:\n");
+scanf("%d",&e3);
+z= insertpos(head,e3,pos);
+break;
+case 4:display(head);
+break;
+case 5:break;
+default: printf("invalid choice:\n");
+break;
+};
+}while(ch!=5);
+return 0;
+}
+NODE getnode()
+{
+NODE p;
+p=(NODE)malloc(sizeof(struct node));
+if(p!=NULL)
+return p;
+else
+{
+printf("memory is not allocated\n");
+exit(0);
+}
+}
+void display(NODE head)
+{
+NODE p;
+if(head==NULL)
+{
+printf("list is empty\n");
+exit(0);
+}
+p=head;
+while(p!=NULL)
+{
+printf("%d\n",p->data);
+p=p->next;
+}
+}
+NODE end(NODE head,int item)
+{
+NODE p,q;
+q=getnode();
+q->data=item;
+p=head;
+
+while(p->next!=NULL)
+{
+p=p->next;
+}
+
+p->next=q;
+q->next=NULL;
+
+}
+NODE front(NODE head,int item)
+{
+NODE p;
+p=getnode();
+p->data=item;
+p->next=head;
+head=p;
+return head;
+}
+NODE insertpos(NODE head,int item,int pos)
+{
+NODE curr,prev=NULL,newn;
+int c=1;
+newn=getnode();
+newn->data=item;
+newn->next=NULL;
+if(head==NULL)
+{
+if(pos==-1)
+{
+return newn;
+}
+else
+{
+printf("invalid position\n");
+return head;
+}
+}
+if(pos==1)
+{
+newn->next=head;
+head=newn;
+return head;
+}
+else
+{
+curr=head;
+while((curr!=NULL) && (c!=pos))
+{
+prev = curr;
+curr=curr->next;
+c++;
+}
+if(c==pos)
+{
+prev->next=newn;
+newn->next=curr;
+return head;
+}
+else
+{
+printf("invalid position\n");
+return head;
+}
+}
+}

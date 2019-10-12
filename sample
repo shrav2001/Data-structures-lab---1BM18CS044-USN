@@ -1,0 +1,77 @@
+#include<stdio.h>
+void display(int s[10],int top);
+//int pop(int s[10],int *top);
+void push(int *top,int ele,int s[10]);
+void arrange(int s[10],int *top);
+int main()
+{
+int top=-1;
+ine ele,e[10],s[10],n,i;
+printf("enter the number of elements you wanna insert\n");
+scanf("%d\n",&n);
+printf("enter the elements you want to push into the stack\n");
+for(i=0;i<n;i++)
+{
+scanf("%d\n",&e[i]);
+}
+for(i=0;i<n;i++)
+{
+push(top,e[i],s);
+}
+arrange();
+printf("the resultant stack is \n");
+display();
+}
+/*int pop(int s[10],int *top)
+{
+int item;
+if(*top<=-1)
+{
+printf("stack underflow\n");
+return -9999;
+}
+item=s[*top];
+*top=*top-1;
+return item;
+}*/
+void push(int *top,int ele,int s[10])
+{
+if(top>=100)
+{
+printf("stack overflow\n");
+return;
+}
+*top=*top+1;
+s[*top]=ele;
+}
+void display(int s[10],int top)
+{
+if(top<=-1)
+{
+printf("stack is empty\n");
+return;
+}
+printf("the elements are");
+for(int i=top;i>0;i--)
+printf("%d\n",s[i]);
+}
+void arrange(int s[10],int *top1)
+{
+int i,temp;
+if(*top<=-1)
+{
+printf("the stack is empty\n");
+return;
+}
+for(i=top;i>0;i--)
+{
+if(s[top]<s[i])
+{
+temp=s[top];
+s[top]=s[i];
+s[i]=temp;
+}
+top=top-1;
+}
+}
+

@@ -1,0 +1,116 @@
+#include<stdio.h>
+#define s 50
+void insert(int item,int *r,int *f,int q[]);
+int delete(int q[],int *f,int *r);
+void display(int q[],int r,int f);
+
+void insert(int item,int *r,int *f,int q[])
+{
+	if((*f==*r+1)||(*f==0 && *r==s-1))
+	{
+		printf("queue overflow\n");
+		return;
+	}
+	if(*f==-1)
+		*f=0;
+	*r=(*r+1)%s;
+	q[*r]=item;
+}
+
+int delete(int q[],int *f,int *r)
+{
+	int item;
+	if(*f==-1)
+	{
+		printf("queue underflow\n");
+		return -99;
+	}
+	item=q[*f];
+	if(*f==*r)
+	{
+		*f=-1;
+		*r==-1;
+
+	}
+	else
+		*f=(*f+1)%s;
+	return item;
+}
+void display(int q[],int r,int f)
+{
+	int i;
+	if(f==-1)
+	{
+		printf("playlist is empty\n");
+		return;
+	}
+	printf("contents of playlist are :\n");
+	for(i=f;i!=r;i=(i+1)%s)
+		printf(" %d",q[i]);
+	printf("\n");
+}
+int main()
+{
+    int a[s],b[s],c[s],t[s],ar=-1,af=-1,br=-1,bf=-1,cr=-1,cf=-1,tr=-1,tf=-1,ca=0,cb=0,cc=0,x,ele,ch,i,ch1;
+    do
+    {
+        printf("enter 1:to push into a\n2:to push into b\n3:to push into c\n-1:exit");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:insert(ch,&ar,&af,a);
+            ca++;
+            break;
+            case 2:insert(ch,&br,&bf,b);
+            cb++;
+            break;
+            case 3:insert(ch,&cr,&cf,c);
+            cc++;
+            break;
+            default:printf("invalid choice\n");
+            break;
+        }
+
+    }while(ch!=-1);
+    for(i=0;i<ca;i++)
+	{
+		insert(a[i],&tr,&tf,t);
+	}
+	for(i=0;i<cb;i++)
+	{
+		insert(b[i],&tr,&tf,t);
+	}
+	for(i=0;i<cc;i++)
+	{
+		insert(c[i],&tr,&tf,t);
+	}
+    while(ch1!=-1)
+    {
+       printf("enter 1:to play all the playlists\n2:to play playlist a\n3:to play playlist b\n4:to play playlist c\n5:to delete a song from a playlist\n6:to delete the entire playlist\n-1:exit");
+       scanf("%d",&ch1);
+       switch(ch1)
+       {
+
+        case 1:display(t,&tr,&tf);
+            break;
+        case 2:display(a,&ar,&af);
+            break;
+        case 3:display(b,&br,&bf);
+            break;
+        case 4:display(c,&cr,&cf);
+            break;
+        case 5:break;
+        case 6:tf=ca+cb-1;
+        for(i=0;i<cc;i++)
+        {
+            delete(c,&cf,&cr);
+        }
+        tr=ca+cb-1;
+        cc=0;
+            break;
+        default:printf("invalid choice\n");
+        break;
+       }
+
+    }
+}

@@ -1,0 +1,104 @@
+#include<stdio.h>
+void push1(int ele,int st[100],int *t1);
+int pop1(int st[100],int *t1);
+void push2(int ele,int st[100],int *t2);
+int pop2(int st[100],int *t2);
+void push1(int ele,int st[100],int *t1)
+{
+	if(*t1==49)
+	{
+		printf("stack overflow \n");
+		return;
+	}
+	*t1=*t1+1;
+	st[*t1]=ele;
+}
+void push2(int ele,int st[100],int *t2)
+{
+	if(*t2==99)
+	{
+		printf("stack overflow \n");
+		return;
+	}
+	*t2=*t2+1;
+	st[*t2]=ele;
+}
+int pop1(int st[100],int *t1)
+{
+	if(*t1==-1)
+	{
+		printf("stack underflow \n");
+		return -9999;
+	}
+	return st[(*t1)--];
+}
+int pop2(int st[100],int *t2)
+{
+	if(*t2==49)
+	{
+		printf("stack underflow \n");
+		return -9999;
+	}
+	return st[(*t2)--];
+}
+void display1(int st[100],int t1)
+{
+	int i;
+	if(t1==-1)
+	{
+		printf("stack is empty \n");
+		return;
+	}
+	for(i=t1;i>=0;i--)
+	{
+		printf("%d \n",st[i]);
+	}
+}
+void display2(int st[100],int t2)
+{
+	int i;
+	if(t2==49)
+	{
+		printf("stack is empty \n");
+		return;
+	}
+	for(i=t2;i>=50;i--)
+	{
+		printf("%d \n",st[i]);
+	}
+}
+int main()
+{
+	int ch,ele;
+	int top1=-1;
+	int top2=49;
+	int twostacks[100];
+	printf("enter\n1.push to stack1\n2.push to stack2\n3.pop stack1\n4.pop stack2\n5.display stack1\n6.display stack2\n-1.exit\n");
+	scanf("%d",&ch);
+	while(ch!=-1)
+	{
+		switch(ch)
+		{
+			case 1:printf("enter the element\n");
+				scanf("%d",&ele);
+				push1(ele,twostacks,&top1);
+				break;
+			case 2:printf("enter the element\n");
+				scanf("%d",&ele);
+				push2(ele,twostacks,&top2);
+				break;
+			case 3:printf("popped element is %d",pop1(twostacks,&top1));
+				break;
+			case 4:printf("popped element is %d",pop2(twostacks,&top2));
+				break;
+			case 5:display1(twostacks,top1);
+				break;
+			case 6:display2(twostacks,top2);
+				break;
+			default:printf("invalid input\n");
+		}
+		printf("enter next choice or -1 to exit\n");
+		scanf("%d",&ch);
+	}
+	return 0;
+}

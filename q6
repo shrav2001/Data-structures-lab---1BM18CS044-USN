@@ -1,0 +1,75 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	int data;
+	struct node *next;
+};
+typedef struct node * NODE;
+NODE getnode();
+NODE push(int item,NODE head,int *count,int size);
+NODE pop(NODE head);
+void display(NODE head);
+NODE getnode()
+{
+	NODE p;
+	p=(NODE)malloc(sizeof(struct node));
+	if(p!=NULL)
+		return p;
+	else
+	{
+		printf("memory could not be allocated\n");
+		exit(0);
+	}
+}
+NODE push(int item,NODE head,int *count,int size)
+{
+	NODE p;
+	if(*count<=size)
+	{
+		p=getnode();
+		p->data=item;
+		p->next=head;
+		head=p;
+	}
+	else
+	{
+		printf("Stack overflow\n");
+	}
+	return head;
+}
+NODE pop(NODE head)
+{
+	NODE p=head;
+	if(head==NULL)
+	{
+		printf("Stack underflow\n");
+		return head;
+	}
+	
+	head=p->next;
+	free(p);
+	return head;
+}
+
+int main()
+{
+	NODE head=NULL;
+	int n,item,count,x,i;
+	count=1;
+	
+	printf("enter n value\n");
+	scanf("%d",&n);
+	for(i=0;i<=n;i++)
+	{
+		head=push((i+1),head,&count,(n+1));
+	}
+	printf("enter x value\n");
+	scanf("%d",&x);
+	for(i=n;i>=x+1;i--)
+	{
+		head=pop(head);
+	}
+	printf("he was looking into webpage%d\n",head->data);
+  return 0;
+}

@@ -1,0 +1,93 @@
+#include<stdio.h>
+void push(int e,int st[100],int *t);
+int pop(int st[100],int *t);
+void display(int st[100],int t);
+void push(int e,int st[100],int *t)
+{
+	if(*t==99)
+	{
+		printf("stack overflow \n");
+		return;
+	}
+	*t=*t+1;
+	st[*t]=e;
+}
+int pop(int st[100],int *t)
+{
+	if(*t==-1)
+	{
+		printf("stack underflow \n");
+		return -9999;
+	}
+	return st[(*t)--];
+}
+void display(int st[100],int t)
+{
+	int i;
+	if(t==-1)
+	{
+		printf("stack is empty \n");
+		return;
+	}
+	for(i=t;i>=0;i--)
+	{
+		printf("%d \n",st[i]);
+	}
+}
+int main()
+{
+	int s[100],temp[100],res[100];
+	int top=-1;
+	int tr=-1;
+	int tt=-1;
+	int ele,i,ch,l,j;
+	int c=0;
+	printf("enter 1 to push 2 to display the final stack -1 to terminate\n");
+	scanf("%d",&ch);
+	while(ch!=-1)
+	{
+		switch(ch)
+		{
+			case 1: printf("enter item\n");
+				scanf("%d",&ele);
+				
+				push(ele,s,&top);
+				break;
+			case 2: l=s[top];
+				for(i=top-1;i>=0;i--)
+				{
+					if(s[i]<l)
+						l=s[i];
+				}
+				for(i=top;i>=0;i--)
+				{
+					if(s[i]==l)
+						push(s[i],res,&tr);
+				}
+				j=top;
+				while(j>=0)
+				{
+					if(s[j]!=l)
+						push(s[j],temp,&tt);
+					j--;
+				}
+					
+				for(i=tt;i>=0;i--)
+				{
+					
+					push((pop(temp,&tt)),res,&tr);
+				}
+				display(res,tr);
+				break;
+			default:printf("invalid choice");
+		}
+
+		printf("enter next choice\n");
+		scanf("%d",&ch);
+	}
+	return 0;
+}
+				
+					
+
+

@@ -9,7 +9,7 @@ typedef struct node * NODE;
 NODE insert_front(int item,NODE head);
 void compare(NODE head1,NODE head2);
 NODE getnode();
-void display(NODE head);
+//void display(NODE head);
 void compare(NODE head1,NODE head2)
 {
     NODE p1=head1,p2=head2;
@@ -72,7 +72,7 @@ int main()
 	{
 		switch(ch)
 		{
-			case 1:printf("enter the item\n");
+       case 1:printf("enter the item\n");
 				scanf("%d",&item);
 				head=insert_front(item,head);
 				break;
@@ -89,7 +89,7 @@ int main()
 		printf("enter next choice or -1 to exit\n");
 		scanf("%d",&ch);
 	}
-	compare(head,head2);
+	
 
 	return 0;
 }

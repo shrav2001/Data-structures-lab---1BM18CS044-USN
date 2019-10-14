@@ -1,0 +1,96 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	int data;
+	struct node *next;
+};
+typedef struct node * NODE;
+NODE insert_front(int item,NODE head);
+void compare(NODE head1,NODE head2);
+NODE getnode();
+void display(NODE head);
+void compare(NODE head1,NODE head2)
+{
+    NODE p1=head1,p2=head2;
+    int flag=0,count;
+    if(head1==NULL && head2!=NULL)
+    {
+        printf("the lists are not equal\n");
+        exit(0);
+    }
+    else
+        if(head2==NULL && head1!=NULL)
+    {
+        printf("the lista are not equal\n");
+        exit(0);
+    }
+    else
+    while(p1->next!=NULL && p2->next!=NULL)
+    {
+        if(p1->data==p2->data)
+        {
+            flag=1;
+            exit(0);
+        }
+        if(flag==1)
+        printf("the lists are equal\n");
+        p1=p1->next;
+        p2=p2->next;
+    }
+
+
+}
+NODE getnode()
+{
+	NODE p;
+	p=(NODE)malloc(sizeof(struct node));
+	if(p!=NULL)
+		return p;
+	else
+	{
+		printf("memory could not be allocated\n");
+		exit(0);
+	}
+}
+NODE insert_front(int item,NODE head)
+{
+	NODE p;
+	p=getnode();
+	p->data=item;
+	p->next=head;
+	head=p;
+	return head;
+}
+int main()
+{
+	NODE head=NULL,head2=NULL;
+	int ch,item,item2;
+	printf("enter\n1.insert in list 1\n2:insert in list 2\n3:to check whether the lists are equal or not\n-1.exit\n");
+	scanf("%d",&ch);
+	while(ch!=-1)
+	{
+		switch(ch)
+		{
+			case 1:printf("enter the item\n");
+				scanf("%d",&item);
+				head=insert_front(item,head);
+				break;
+       case 2:printf("enter the item\n");
+				scanf("%d",&item2);
+				head2=insert_front(item,head2);
+				break;
+       case 3:printf("\n");
+            compare(head,head2);
+            break;
+       default:printf("invalid input\n");
+			break;
+		}
+		printf("enter next choice or -1 to exit\n");
+		scanf("%d",&ch);
+	}
+	compare(head,head2);
+
+	return 0;
+}
+

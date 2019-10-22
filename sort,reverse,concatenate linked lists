@@ -1,0 +1,158 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	int data;
+	struct node *next;
+};
+typedef struct node * NODE;
+NODE insert_front(int item,NODE head);
+NODE getnode();
+void display(NODE head);
+NODE concatenate(NODE head1,NODE head2);
+NODE reverse(NODE head);
+void sort(NODE head);
+NODE getnode()
+{
+	NODE p;
+	p=(NODE)malloc(sizeof(struct node));
+	if(p!=NULL)
+		return p;
+	else
+	{
+		printf("memory could not be allocated\n");
+		exit(0);
+	}
+}
+NODE insert_front(int item,NODE head)
+{
+	NODE p;
+	p=getnode();
+	p->data=item;
+	p->next=head;
+	head=p;
+	return head;
+}
+void display(NODE head)
+{
+	NODE p;
+	if(head==NULL)
+	{
+		printf("list is empty\n");
+		exit(0);
+	}
+	p=head;
+	while(p!=NULL)
+	{
+		printf("%d\n",p->data);
+		p=p->next;
+	}
+}
+NODE reverse(NODE head)
+{
+  NODE curr=head,prev=NULL,nextn=NULL;
+  if(head==NULL)
+    {
+      printf("list is empty\n");
+      return head;
+    }
+  if(head->next==NULL)
+    {
+      return head;
+    }
+  while(curr!=NULL)
+{
+   nextn=curr->next;
+   curr->next=prev;
+   prev=curr;
+   curr=nextn;
+}
+head=prev;
+return head;
+}
+NODE concatenate(NODE head1,NODE head2)
+{
+NODE p=head1;
+if(head1==NULL && head2==NULL)
+{
+printf("the list is empty\n");
+return NULL;
+}
+if(head1==NULL && head2!=NULL)
+{
+return head2;
+}
+if(head2==NULL && head1!=NULL)
+{
+return head1;
+}
+if(head2!=NULL && head1!=NULL)
+{
+while(p->next!=NULL)
+{
+p=p->next;
+}
+p->next=head2;
+return head1;
+
+}
+}
+void sort(NODE head)
+{
+NODE p=head,q=NULL;
+int temp;
+if(head==NULL)
+return;
+while(p->next!=NULL)
+{
+q=p->next;
+while(q!=NULL)
+{
+if(p->data>q->data)
+{
+temp=p->data;
+p->data=q->data;
+q->data=temp;
+}
+q=q->next;
+}
+p=p->next;
+}
+}
+int main()
+{
+NODE head1=NULL,head2=NULL;
+	int ch,item1,item2,pos;
+	printf("enter\n1.insert in 1st linked list\n2.insert in 2nd linked list\n3.sort\n4.reverse the string\n5.concatenate two strings\n6.display 1st list\n7.display 2nd list\n-1.exit\n");
+	scanf("%d",&ch);
+	while(ch!=-1)
+	{
+		switch(ch)
+		{
+		case 1:printf("enter the item in first liked list\n");
+				scanf("%d",&item1);
+				head1=insert_front(item1,head1);
+				break;
+		case 2:printf("enter the item in second liked list\n");
+				scanf("%d",&item2);
+				head2=insert_front(item2,head2);
+				break;		
+		case 3:sort(head1);
+		       break;
+		case 4:head1=reverse(head1); 
+		       break;
+		case 5:head1=concatenate(head1,head2);
+		       break;
+		case 6 :display(head1);
+		         break; 
+		case 7 :display(head2);
+		         break; 
+		default:printf("invalid input\n");
+		}
+		printf("enter next choice or -1 to exit\n");
+		scanf("%d",&ch);
+	}
+	return 0;
+}                                          
+		
+				

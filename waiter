@@ -1,0 +1,107 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define N 100
+int pop(int *t,int s[N]);
+void push(int *t,int s[N],int item);
+void display(int t,int s[N]);
+int main()
+{
+int a[N],b[N],i,q,n,ele,e,t=-1,j,count=0,arr[N],k,arr1[N],l;
+printf("enter the value of n\n");
+scanf("%d",&n);
+for(i=0;i<n;i++)
+{
+printf("enter the item you wanna push\n");
+scanf("%d",&ele);
+push(&t,a,ele);
+for(k=0;k<n;k++)
+{
+arr1[k]=ele;
+}
+}
+printf("there are %d plates in the stack A currently\n",n);
+printf("input the number of iterations q\n");
+scanf("%d",&q);
+/*if(q<n)
+{
+for(i=0;i<q;i++)
+{
+e=pop(&t,a);
+for(j=2;j<i/2;j++)
+{
+if(ele%j==0)
+{
+count++;
+push(&t,b,ele);
+}
+}
+}
+printf("stack B\n");
+display(t,b);
+}*/
+if(q<n)
+{
+for(i=0;i<q;i++)
+{
+for(j=2;j<i/2;j++)
+{
+if(i%j==0)
+{
+arr[count]=i;
+count++;
+}
+}
+}
+for(k=0;k<count;k++)
+{
+for(l=0;l<n;l++)
+{
+if(arr1[l]%arr[k]==0)
+{
+e=pop(&t,a);
+push(&t,b,e);
+}
+}
+}
+printf("the elements in stack b are\n");
+display(t,b);
+printf("the elements in stack a are\n");
+display(t,a);
+
+}
+else
+printf("invalid value of q");
+return 0;
+
+}
+
+void push(int *t,int s[N],int item)
+
+{
+
+ *t=*t+1;
+ s[*t]=item;
+}
+void display(int t,int s[N])
+{
+ int i;
+ if(t==-1)
+  {
+    printf("stack is empty\n");
+    return;
+  }
+  for(i=t;i>=0;i--)
+  {
+   printf("%d\n",s[i]);
+  }
+}
+int pop(int *t,int s[N])
+{
+  int x;
+  x=s[*t];
+  *t=*t-1;
+  return x;
+}
+
+
+

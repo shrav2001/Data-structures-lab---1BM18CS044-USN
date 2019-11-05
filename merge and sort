@@ -1,0 +1,155 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	int data;
+	struct node *next;
+};
+typedef struct node * NODE;
+NODE insert_front(int item,NODE head);
+NODE getnode();
+void display(NODE head);
+void search(NODE head,int item);
+NODE merge(NODE h1,NODE h2);
+void sort(NODE head);
+NODE getnode()
+{
+	NODE p;
+	p=(NODE)malloc(sizeof(struct node));
+	if(p!=NULL)
+		return p;
+	else
+	{
+		printf("memory could not be allocated\n");
+		exit(0);
+	}
+}
+NODE insert_front(int item,NODE head)
+{
+	NODE p;
+	p=getnode();
+	p->data=item;
+	p->next=head;
+	head=p;
+	return head;
+}
+void display(NODE head)
+{
+	NODE p;
+	if(head==NULL)
+	{
+		printf("list is empty\n");
+		exit(0);
+	}
+	p=head;
+	while(p!=NULL)
+	{
+		printf("%d\n",p->data);
+		p=p->next;
+	}
+}
+void search(NODE head,int item)
+{
+NODE p=head;
+int pos=1;
+if(head==NULL)
+{
+printf("the list is empty");
+return;
+}
+
+while(p->next!=NULL)
+{
+if(p->data==item)
+{
+
+printf("the element %d is found at position %d",item,pos);
+}
+pos++;
+p=p->next;
+}
+}
+void sort(NODE head)
+{
+NODE p=head,q=NULL;
+int temp;
+if(head==NULL)
+return;
+while(p->next!=NULL)
+{
+q=p->next;
+while(q!=NULL)
+{
+if(p->data>q->data)
+{
+temp=p->data;
+p->data=q->data;
+q->data=temp;
+}
+q=q->next;
+}
+p=p->next;
+}
+}
+NODE merge(NODE h1,NODE h2)
+{
+NODE p=h1;
+if(h1==NULL && h2==NULL)
+{
+printf("the list is empty\n");
+return NULL;
+}
+if(h1!=NULL && h2==NULL)
+{
+return h1;
+}
+if(h1==NULL && h2!=NULL)
+{
+return h2;
+}
+if(h1!=NULL && h2!=NULL)
+{
+while(p->next!=NULL)
+{
+p=p->next;
+}
+p->next=h2;
+return h1;
+}
+}
+int main()
+{
+	NODE head=NULL,head1=NULL;
+	int ch,item1,item2,ele;
+	printf("enter\n1.insert front in list 1\n2.insert front in list 2\n3.search\n4.display\n5.merge\n6.sort\n-1.exit\n");
+	scanf("%d",&ch);
+	while(ch!=-1)
+	{
+		switch(ch)
+		{
+			case 1:printf("enter the item\n");
+				scanf("%d",&item1);
+				head=insert_front(item1,head);
+				break;
+                        case 2:printf("enter the item\n");
+				scanf("%d",&item2);
+				head1=insert_front(item2,head1);
+				break;
+			case 3:printf("enter the element you wanna search");
+                               scanf("%d",&ele);
+                               search(head,ele);
+                               break;
+
+			case 4:display(head);
+                               break;
+                        case 5:head=merge(head,head1);
+                                break;
+                        case 6:sort(head);
+                               break;
+			default:printf("invalid input\n");
+		}
+		printf("enter next choice or -1 to exit\n");
+		scanf("%d",&ch);
+	}
+	return 0;
+}

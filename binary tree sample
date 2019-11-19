@@ -1,0 +1,132 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+int data;
+struct node *lchild;
+struct node *rchild;
+};
+typedef struct node * NODE;
+NODE getnode(int item);
+NODE insert(NODE root,int item);
+void inorder(NODE root);
+void postorder(NODE root);
+void preorder(NODE root);
+void display(NODE root);
+NODE getnode(int item)
+{
+NODE p;
+p=(NODE)malloc(sizeof(struct node *));
+p->data=item;
+p->lchild=NULL;
+p->rchild=NULL;
+return p;
+}
+NODE insert(NODE root,int item)
+{
+if(root==NULL)
+return getnode(item);
+if(item<root->data)
+root->lchild=insert(root->lchild,item);
+else
+if(item>=root->data)
+root->rchild=insert(root->rchild,item);
+return root;
+}
+void inorder(NODE root)
+{
+if(root==NULL)
+return;
+inorder(root->lchild);
+printf("%d",root->data);
+inorder(root->rchild);
+}
+void preorder(NODE root)
+{
+if(root==NULL)
+return;
+printf("%d",root->data);
+inorder(root->lchild);
+inorder(root->rchild);
+}
+void postorder(NODE root)
+{
+if(root==NULL)
+return;
+inorder(root->lchild);
+inorder(root->rchild);
+printf("%d",root->data);
+}
+/*void display(NODE root)
+{
+NODE p=root,q;
+while(p!=NULL)
+{
+q=p;
+printf("%d ",q->data);
+q=p->lchild;
+printf("%d ",q->data);
+q=p->rchild;
+printf("%d ",q->data);
+display(root);
+}*/
+void display(NODE root)
+{
+	if(root==NULL) 
+	return ;
+	display(root->rchild);
+	printf("%d \n",root->data);
+	display(root->lchild);
+
+
+}
+int main()
+{
+int ch,val;
+NODE root=NULL;
+printf("enter user choice\n1:insert\n2:inorder\n3:preorder\n4:postorder\n5:display\n-1:exit\n");
+scanf("%d\n",&ch);
+while(ch!=-1)
+{
+switch(ch)
+{
+case 1:printf("enter the value you wanna insert\n");
+scanf("%d\n",&val); 
+root=insert(root,val);
+break;
+case 2:printf("inorder:\n");
+inorder(root);
+break;
+case 3:printf("preorder:\n");
+preorder(root);
+break;
+case 4:printf("postorder:\n");
+postorder(root);
+break;
+case 5:display(root);
+break;
+/*default: printf("invalid choice\n");
+break;*/
+}
+printf("enter next choice or -1 to exit\n");
+		scanf("%d",&ch);
+}
+return 0;
+}
+
+/*
+
+void display(NODE root,int l)
+{
+	int i;
+	if(!root) return ;
+	display(root->rchild,l+1);
+	for(i=0;i<l;++i)
+		printf(" ");
+	printf("%c \n",r->data);
+	display(r->lchild,l+1);
+
+
+}
+
+*/

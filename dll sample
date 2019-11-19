@@ -1,0 +1,152 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+int data;
+struct node * next;
+struct node * prev;
+};
+typedef struct node * NODE;
+NODE getnode();
+NODE insertleft(int item,NODE head1,NODE node);
+NODE deleteval(int item,NODE head);
+void display(NODE head);
+NODE getnode()
+{
+NODE p;
+p=(NODE)malloc(sizeof(struct node));
+if(p!=NULL)
+return p;
+else
+printf("memory not allocated\n");
+
+}
+NODE insertleft(int item,NODE head,NODE node)
+{
+NODE p,q;
+p=getnode();
+p->data=item;
+p->prev=NULL;
+p->next=NULL;
+if(head==node)
+{
+node->prev=p;
+p->next=node;
+p->prev=NULL;
+head=p;
+return head;
+}
+node->prev->next=p;
+p->prev=node->prev;
+p->next=node;
+node->prev=p;
+return head;
+}
+NODE deleteval(int item,NODE head)
+{
+NODE p;
+if(head==NULL)
+{
+printf("list is empty\n");
+return NULL;
+}
+if(head->next==NULL)
+{
+if(head->data==item)
+{
+free(head);
+return NULL;
+
+}
+else
+{
+printf("value not found\n");
+return head;
+}
+}
+while(p!=NULL)
+{
+if(p->data==item)
+{
+if(p->prev!=NULL)
+p->prev->next=NULL;
+else
+head=p->next;
+if(p->next!=NULL)
+{
+p->next->prev=p->prev;
+free(p);
+return head;
+}
+}
+p=p->next;
+}
+if(p==NULL)
+{
+printf("value not found\n");
+return head;
+}
+}
+void display(NODE head)
+{
+NODE p=head;
+printf("the elements are\n");
+if(head==NULL)
+{
+printf("the list is empty\n");
+}
+while(p!=NULL)
+{
+printf("%d",p->data);
+p=p->next;
+}
+}
+int main()
+{
+NODE head=NULL,p=head;
+	int ch,e,ele,n1,i;
+	printf("enter\n1.insert \n2.delete the given value\n3.display\n-1.exit\n");
+	scanf("%d",&ch);
+	while(ch!=-1)
+	{
+		switch(ch)
+		{
+		case 1:printf("enter the item to be inserted in the liked list\n");
+		scanf("%d\n",&e);
+		printf("enter the value of i\n");
+		scanf("%d\n",&i);
+while(p!=NULL)
+{
+n1++;
+if(n1==i)
+{
+head=insertleft(ele,head,p);
+}
+p=p->next;
+}
+				
+				break;
+		case 2:printf("enter the value you wanna delete\n");
+		       scanf("%d",&ele);
+		         head=deleteval(ele,head);
+				break;		
+		case 3:display(head);
+		       break;
+		default:printf("invalid input\n");
+		}
+		printf("enter next choice or -1 to exit\n");
+		scanf("%d",&ch);
+	}
+	return 0;
+} 
+/*
+while(p!=NULL)
+{
+n1++;
+if(n1==i)
+{
+head=insertleft(ele,head,p);
+}
+p=p->next;
+}
+*/
